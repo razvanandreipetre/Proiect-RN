@@ -10,7 +10,7 @@
 ### 2.2 Caracteristicile dataset-ului
 
 * **Număr total de observații:** 50
-* **Număr de caracteristici (features):** 1
+* **Număr de caracteristici (features):** 5
 * **Tipuri de date:** ☐ Numerice / ☐ Categoriale / ☐ Temporale / ✓ Imagini
 * **Format fișiere:** ☐ CSV / ☐ TXT / ☐ JSON / ✓ PNG / ☐ Altele: [...]
 

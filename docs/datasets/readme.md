@@ -10,7 +10,7 @@
 ### 2.2 Caracteristicile dataset-ului
 
 * **Număr total de observații:** 50
-* **Număr de caracteristici (features):** 5
+* **Număr de caracteristici (features):** 1
 * **Tipuri de date:** ☐ Numerice / ☐ Categoriale / ☐ Temporale / ✓ Imagini
 * **Format fișiere:** ☐ CSV / ☐ TXT / ☐ JSON / ✓ PNG / ☐ Altele: [...]
 
@@ -18,7 +18,8 @@
 
 | **Caracteristică** | **Tip** | **Unitate** | **Descriere** | **Domeniu valori** |
 |-------------------|---------|-------------|---------------|--------------------|
-| imagini | imagini | px | imagini logo-uri | 280x280 |
+| imagine logo | imagini | px | imagini logo-uri | 280x280(sau rezolutia initiala) |
+| Clase | Categorii |  | marca de masina | Audi,BMW,Mercedes,Renault,Hyundai |
 
 **Fișier recomandat:**  `data/README.md`
 
@@ -28,22 +29,18 @@
 
 ### 3.1 Statistici descriptive aplicate
 
-* **Medie, mediană, deviație standard**
-* **Min–max și quartile**
-* **Distribuții pe caracteristici** (histograme)
-* **Identificarea outlierilor** (IQR / percentile)
+* 5 clase a cate 10 imagini fiecare
+* Analiza dimensiunilor imaginii (Verificare uniformitate).
 
 ### 3.2 Analiza calității datelor
 
-* **Detectarea valorilor lipsă** (% pe coloană)
-* **Detectarea valorilor inconsistente sau eronate**
-* **Identificarea caracteristicilor redundante sau puternic corelate**
+* Identificarea siglelor care seamana foarte mult
+* Dectectarea imaginilor cu rezolutie diferita sau fundal diferit
 
 ### 3.3 Probleme identificate
 
-* [exemplu] Feature X are 8% valori lipsă
-* [exemplu] Distribuția feature Y este puternic neuniformă
-* [exemplu] Variabilitate ridicată în clase (class imbalance)
+* Dimensiuni initiale diferite
+
 
 ---
 
@@ -51,21 +48,15 @@
 
 ### 4.1 Curățarea datelor
 
-* **Eliminare duplicatelor**
-* **Tratarea valorilor lipsă:**
-  * Feature A: imputare cu mediană
-  * Feature B: eliminare (30% valori lipsă)
-* **Tratarea outlierilor:** IQR / limitare percentile
+* Fiecare imagine a fost redimensionata ca sa aiba 28x28 pixeli pentru a putea fi trecuta mult mai usor in program.Am folosit functiile IMAQ Create,IMAQ Resample si IMAQ ImageToArray.
 
 ### 4.2 Transformarea caracteristicilor
 
-* **Normalizare:** Min–Max / Standardizare
-* **Encoding pentru variabile categoriale**
-* **Ajustarea dezechilibrului de clasă** (dacă este cazul)
+* Normalizarea valorilor pixelilor: Scalarea valorilor pixelilor din intervalul [0,255] în intervalul [0,1], împărțind la 255.
+
 
 ### 4.3 Structurarea seturilor de date
 
-**Împărțire recomandată:**
 * 70–80% – train
 * 10–15% – validation
 * 10–15% – test
@@ -95,8 +86,8 @@
 
 ##  6. Stare Etapă (de completat de student)
 
-- [ ] Structură repository configurată
-- [ ] Dataset analizat (EDA realizată)
-- [ ] Date preprocesate
+- [✓] Structură repository configurată
+- [✓] Dataset analizat (EDA realizată)
+- [✓] Date preprocesate
 - [ ] Seturi train/val/test generate
-- [ ] Documentație actualizată în README + `data/README.md`
+- [✓] Documentație actualizată în README + `data/README.md`

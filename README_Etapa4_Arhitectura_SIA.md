@@ -3,7 +3,9 @@
 **Disciplina:** Rețele Neuronale  
 **Instituție:** POLITEHNICA București – FIIR  
 **Student:** Petre Razvan-Andrei 
+
 **Link Repository GitHub:** https://github.com/razvanandreipetre/Proiect-RN
+
 **Data:** 04.12.2025 
 ---
 

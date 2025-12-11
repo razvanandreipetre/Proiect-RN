@@ -85,7 +85,7 @@ Toate cele 3 module trebuie să **pornească și să ruleze fără erori** la pr
 #### **Modul 1: Data Logging / Acquisition**
 
 **Funcționalități obligatorii:**
-- [X] Cod rulează fără erori: Vi2.vi
+- [X] Cod rulează fără erori: redimensionare imagini.vi
 - [ ] Generează CSV în format compatibil cu preprocesarea din Etapa 3
 - [X] Include minimum 40% date originale în dataset-ul final
 - [X] Documentație în cod: ce date generează, cu ce parametri
@@ -117,7 +117,7 @@ Toate cele 3 module trebuie să **pornească și să ruleze fără erori** la pr
 - [ ] Repository structurat conform modelului de mai sus (verificat consistență cu Etapa 3)
 
 ### Modul 1: Data Logging / Acquisition
-- [X] Cod rulează fără erori (Vi2.vi)
+- [X] Cod rulează fără erori (redimensionare imagini.vi)
 - [X] Produce minimum 40% date originale din dataset-ul final
 - [ ] CSV generat în format compatibil cu preprocesarea din Etapa 3
 - [ ] Documentație în `src/data_acquisition/README.md` cu:

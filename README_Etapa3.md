@@ -18,7 +18,7 @@
 
 | **Caracteristică** | **Tip** | **Unitate** | **Descriere** | **Domeniu valori** |
 |-------------------|---------|-------------|---------------|--------------------|
-| imagine logo | imagini | px | imagini logo-uri | 280x280(sau rezolutia initiala) |
+| imagine logo | imagini | px | imagini logo-uri | rezolutia initiala |
 | Clase | Categorii |  | marca de masina | Audi,BMW,Mercedes,Renault,Hyundai |
 
 **Fișier recomandat:**  `data/README.md`

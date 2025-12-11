@@ -43,26 +43,6 @@ Deși setul de date inițial este mic (50 de imagini PNG), contribuția original
 
 **Locația codului:** `data/processed`
 **Locația datelor:** `data/raw`
-```
-**Dovezi:**
-- Grafic comparativ: `docs/generated_vs_real.png`
-- Setup experimental: `docs/acquisition_setup.jpg` (dacă aplicabil)
-- Tabel statistici: `docs/data_statistics.csv`
-
-
-#### Exemple pentru "contribuție originală":
--Simulări fizice realiste cu ecuații și parametri justificați  
--Date reale achiziționate cu senzori proprii (setup documentat)  
--Augmentări avansate cu justificare fizică (ex: simulare perspective camera industrială)  
-
-
-#### Atenție - Ce NU este considerat "contribuție originală":
-
-- Augmentări simple (rotații, flips, crop) pe date publice  
-- Aplicare filtre standard (Gaussian blur, contrast) pe imagini publice  
-- Normalizare/standardizare (aceasta e preprocesare, nu generare)  
-- Subset dintr-un dataset public (ex: selectat 40% din ImageNet)
-```
 
 ---
 
@@ -74,13 +54,13 @@ Deși setul de date inițial este mic (50 de imagini PNG), contribuția original
 Am ales arhitectura de Clasificare Imagini deoarece proiectul se bazeaza pe o intrare discreta de date(imagini neprocesate).Obiectivul este de a recunoaste cat mai precis un logo la desenarea acestuia de catre utilizator.
 
 Stările principale sunt:
-1.IDLE: Sistemul așteaptă o acțiune a utilizatorului.
-2.LOAD_IMAGE: Achiziționează imaginea  (fie dintr-o cameră/senzor, fie dintr-un fișier local PNG).
-3.VALIDATE_IMAGE: Verifică calitatea minimă a imaginii (ex: rezoluție, prezența elementelor).
-4.PREPROCESS: Aplică transformările necesare (Redimensionare la 28×28 px, Normalizare [0,1]), pregătind tensorul de intrare.
-5.RN_INFERENCE: Încărcă modelul (VI-ul RN) și realizează clasificarea.
-6.DISPLAY_RESULT:In timpul desenului utilizatorului,programul afișează clasa prezisă (Marca auto) și probabilitatea.
-7.STOP:Se opreste programul
+  1.IDLE: Sistemul așteaptă o acțiune a utilizatorului.
+  2.LOAD_IMAGE: Achiziționează imaginea  (fie dintr-o cameră/senzor, fie dintr-un fișier local PNG).
+  3.VALIDATE_IMAGE: Verifică calitatea minimă a imaginii (ex: rezoluție, prezența elementelor).
+  4.PREPROCESS: Aplică transformările necesare (Redimensionare la 28×28 px, Normalizare [0,1]), pregătind tensorul de intrare.
+  5.RN_INFERENCE: Încărcă modelul (VI-ul RN) și realizează clasificarea.
+  6.DISPLAY_RESULT:In timpul desenului utilizatorului,programul afișează clasa prezisă (Marca auto) și probabilitatea.
+  7.STOP:Se opreste programul
 
 Tranzițiile critice sunt:
 -VALIDATE_IMAGE → ERROR_IMAGE_QUALITY: Când imaginea nu trece de verificarea de calitate (ex: fundal neașteptat, imagine complet neagră).

@@ -2,9 +2,9 @@
 
 **Disciplina:** Rețele Neuronale  
 **Instituție:** POLITEHNICA București – FIIR  
-**Student:** [Nume Prenume]  
-**Link Repository GitHub:** [URL complet]  
-**Data predării:** [Data]
+**Student:** Petre Razvan-Andrei  
+**Link Repository GitHub:** (https://github.com/razvanandreipetre/Proiect-RN)  
+**Data predării:** 11.12.2025
 
 ---
 
@@ -97,12 +97,9 @@ Completați tabelul cu hiperparametrii folosiți și **justificați fiecare aleg
 
 | **Hiperparametru** | **Valoare Aleasă** | **Justificare** |
 |--------------------|-------------------|-----------------|
-| Learning rate | Ex: 0.001 | Valoare standard pentru Adam optimizer, asigură convergență stabilă |
-| Batch size | Ex: 32 | Compromis memorie/stabilitate pentru N=[numărul vostru] samples |
-| Number of epochs | Ex: 50 | Cu early stopping după 10 epoci fără îmbunătățire |
-| Optimizer | Ex: Adam | Adaptive learning rate, potrivit pentru RN cu [numărul vostru] straturi |
-| Loss function | Ex: Categorical Crossentropy | Clasificare multi-class cu K=[numărul vostru] clase |
-| Activation functions | Ex: ReLU (hidden), Softmax (output) | ReLU pentru non-linearitate, Softmax pentru probabilități clase |
+| Rata de invatare | 0.1 | O valoare moderată care permite convergența rețelei în LabVIEW fără oscilații mari. |
+| Numarul de epoci | 1000 | Suficiente iterații pentru ca eroarea globală să scadă sub pragul acceptabil.|
+| Arhitectura | 2 straturi ascunse | Configurație suportată de Create 2 Hidden Layers.vi, suficientă pentru complexitatea imaginilor procesate. |
 
 **Justificare detaliată batch size (exemplu):**
 ```
@@ -484,5 +481,6 @@ Exemplu:
 3. Push: `git push origin main --tags`
 
 ---
+
 
 **Mult succes! Această etapă demonstrează că Sistemul vostru cu Inteligență Artificială (SIA) funcționează în condiții reale!**

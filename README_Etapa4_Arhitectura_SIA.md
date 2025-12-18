@@ -29,8 +29,8 @@ Această etapă corespunde punctului **5. Dezvoltarea arhitecturii aplicației s
 
 ### Contribuția originală la setul de date:
 
-**Total observații finale:** N=25 imagini
-**Observații originale:** M=50(100%)
+**Total observații finale:** N=35 imagini
+**Observații originale:** M=85(100%)
 
 **Tipul contribuției:**
 [ ] Date generate prin simulare fizică  
@@ -39,7 +39,7 @@ Această etapă corespunde punctului **5. Dezvoltarea arhitecturii aplicației s
 [ ] Date sintetice prin metode avansate  
 
 **Descriere detaliată:**
-Datele au fost generate cu ajutorul VI-ului din data/generated prin desen si reprezinta 50% din totalul de date care trebuiesc preprocesate.
+Datele au fost generate cu ajutorul VI-ului din data/generated prin desen si reprezinta 41,18% din totalul de date care trebuiesc preprocesate.
 
 **Locația codului:** `data/generated`
 **Locația datelor:** `data/raw`

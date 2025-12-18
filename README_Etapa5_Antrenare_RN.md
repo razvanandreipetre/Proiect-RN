@@ -42,35 +42,6 @@ Această etapă corespunde punctului **6. Configurarea și antrenarea modelului 
 
 **TREBUIE să refaceți preprocesarea pe dataset-ul COMBINAT:**
 
-Exemplu:
-```bash
-# 1. Combinare date vechi (Etapa 3) + noi (Etapa 4)
-python src/preprocessing/combine_datasets.py
-
-# 2. Refacere preprocesare COMPLETĂ
-python src/preprocessing/data_cleaner.py
-python src/preprocessing/feature_engineering.py
-python src/preprocessing/data_splitter.py --stratify --random_state 42
-
-# Verificare finală:
-# data/train/ → trebuie să conțină date vechi + noi
-# data/validation/ → trebuie să conțină date vechi + noi
-# data/test/ → trebuie să conțină date vechi + noi
-```
-
-** ATENȚIE - Folosiți ACEIAȘI parametri de preprocesare:**
-- Același `scaler` salvat în `config/preprocessing_params.pkl`
-- Aceiași proporții split: 70% train / 15% validation / 15% test
-- Același `random_state=42` pentru reproducibilitate
-
-**Verificare rapidă:**
-```python
-import pandas as pd
-train = pd.read_csv('data/train/X_train.csv')
-print(f"Train samples: {len(train)}")  # Trebuie să includă date noi
-```
-
----
 
 ##  Cerințe Structurate pe 3 Niveluri
 
@@ -103,20 +74,12 @@ Completați tabelul cu hiperparametrii folosiți și **justificați fiecare aleg
 | Arhitectura | 2 straturi ascunse | Configurație suportată de Create 2 Hidden Layers.vi, suficientă pentru complexitatea imaginilor procesate. |
 
 **Justificare detaliată batch size (exemplu):**
-```
+
 Am ales batch_size=32 pentru că avem N=15,000 samples → 15,000/32 ≈ 469 iterații/epocă.
 Aceasta oferă un echilibru între:
 - Stabilitate gradient (batch prea mic → zgomot mare în gradient)
 - Memorie GPU (batch prea mare → out of memory)
 - Timp antrenare (batch 32 asigură convergență în ~50 epoci pentru problema noastră)
-```
-
-**Resurse învățare rapidă:**
-- Împărțire date: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html (video 3 min: https://youtu.be/1NjLMWSGosI?si=KL8Qv2SJ1d_mFZfr)  
-- Antrenare simplă Keras: https://keras.io/examples/vision/mnist_convnet/ (secțiunea „Training”)  
-- Antrenare simplă PyTorch: https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html#training-an-image-classifier (video 2 min: https://youtu.be/ORMx45xqWkA?si=FXyQEhh0DU8VnuVJ)  
-- F1-score: https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html (video 4 min: https://youtu.be/ZQlEcyNV6wc?si=VMCl8aGfhCfp5Egi)
-
 
 ---
 
@@ -136,12 +99,7 @@ Includeți **TOATE** cerințele Nivel 1 + următoarele:
 **Indicatori țintă Nivel 2:**
 - **Acuratețe ≥ 75%**
 - **F1-score (macro) ≥ 0.70**
-
-**Resurse învățare (aplicații industriale):**
-- Albumentations: https://albumentations.ai/docs/examples/   
-- Early Stopping + ReduceLROnPlateau în Keras: https://keras.io/api/callbacks/   
-- Scheduler în PyTorch: https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate 
-
+- 
 ---
 
 ### Nivel 3 – Bonus (până la 100%)
@@ -153,11 +111,6 @@ Includeți **TOATE** cerințele Nivel 1 + următoarele:
 | Comparare 2+ arhitecturi diferite | Tabel comparativ + justificare alegere finală în README |
 | Export ONNX/TFLite + benchmark latență | Fișier `models/final_model.onnx` + demonstrație <50ms |
 | Confusion Matrix + analiză 5 exemple greșite | `docs/confusion_matrix.png` + analiză în README |
-
-**Resurse bonus:**
-- Export ONNX din PyTorch: [PyTorch ONNX Tutorial](https://pytorch.org/tutorials/beginner/onnx/export_simple_model_to_onnx_tutorial.html)
-- TensorFlow Lite converter: [TFLite Conversion Guide](https://www.tensorflow.org/lite/convert)
-- Confusion Matrix analiză: [Scikit-learn Confusion Matrix](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html)
 
 ---
 
@@ -293,57 +246,7 @@ proiect-rn-[prenume-nume]/
 
 ---
 
-## Instrucțiuni de Rulare (Actualizate față de Etapa 4)
 
-### 1. Setup mediu (dacă nu ați făcut deja)
-
-```bash
-pip install -r requirements.txt
-```
-
-### 2. Pregătire date (DACĂ ați adăugat date noi în Etapa 4)
-
-```bash
-# Combinare + reprocesare dataset complet
-python src/preprocessing/combine_datasets.py
-python src/preprocessing/data_cleaner.py
-python src/preprocessing/feature_engineering.py
-python src/preprocessing/data_splitter.py --stratify --random_state 42
-```
-
-### 3. Antrenare model
-
-```bash
-python src/neural_network/train.py --epochs 50 --batch_size 32 --early_stopping
-
-# Output așteptat:
-# Epoch 1/50 - loss: 0.8234 - accuracy: 0.6521 - val_loss: 0.7891 - val_accuracy: 0.6823
-# ...
-# Epoch 23/50 - loss: 0.3456 - accuracy: 0.8234 - val_loss: 0.4123 - val_accuracy: 0.7956
-# Early stopping triggered at epoch 23
-# ✓ Model saved to models/trained_model.h5
-```
-
-### 4. Evaluare pe test set
-
-```bash
-python src/neural_network/evaluate.py --model models/trained_model.h5
-
-# Output așteptat:
-# Test Accuracy: 0.7823
-# Test F1-score (macro): 0.7456
-# ✓ Metrics saved to results/test_metrics.json
-# ✓ Confusion matrix saved to docs/confusion_matrix.png
-```
-
-### 5. Lansare UI cu model antrenat
-
-```bash
-streamlit run src/app/main.py
-
-# SAU pentru LabVIEW:
-# Deschideți WebVI și rulați main.vi
-```
 
 **Testare în UI:**
 1. Introduceți date de test (manual sau upload fișier)
@@ -368,13 +271,13 @@ streamlit run src/app/main.py
 ### Antrenare Model - Nivel 1 (OBLIGATORIU)
 - [X] Model antrenat de la ZERO (nu fine-tuning pe model pre-antrenat)
 - [ ] Minimum 10 epoci rulate (verificabil în `results/training_history.csv`)
-- [ ] Tabel hiperparametri + justificări completat în acest README
+- [X] Tabel hiperparametri + justificări completat în acest README
 - [ ] Metrici calculate pe test set: **Accuracy ≥65%**, **F1 ≥0.60**
-- [ ] Model salvat în `models/trained_model.h5` (sau .pt, .lvmodel)
+- [X] Model salvat în `models/trained_model.h5` (sau .pt, .lvmodel)
 - [ ] `results/training_history.csv` există cu toate epoch-urile
 
 ### Integrare UI și Demonstrație - Nivel 1 (OBLIGATORIU)
-- [ ] Model ANTRENAT încărcat în UI din Etapa 4 (nu model dummy)
+- [X] Model ANTRENAT încărcat în UI din Etapa 4 (nu model dummy)
 - [ ] UI face inferență REALĂ cu predicții corecte
 - [ ] Screenshot inferență reală în `docs/screenshots/inference_real.png`
 - [ ] Verificat: predicțiile sunt diferite față de Etapa 4 (când erau random)
@@ -458,4 +361,5 @@ Exemplu:
 
 
 **Mult succes! Această etapă demonstrează că Sistemul vostru cu Inteligență Artificială (SIA) funcționează în condiții reale!**
+
 

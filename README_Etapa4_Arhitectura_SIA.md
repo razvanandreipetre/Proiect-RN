@@ -29,7 +29,7 @@ Această etapă corespunde punctului **5. Dezvoltarea arhitecturii aplicației s
 
 ### Contribuția originală la setul de date:
 
-**Total observații finale:** N=50 imagini
+**Total observații finale:** N=25 imagini
 **Observații originale:** M=50(100%)
 
 **Tipul contribuției:**
@@ -39,9 +39,9 @@ Această etapă corespunde punctului **5. Dezvoltarea arhitecturii aplicației s
 [ ] Date sintetice prin metode avansate  
 
 **Descriere detaliată:**
-Deși setul de date inițial este mic (50 de imagini PNG), contribuția originală constă în preprocesarea tuturor imaginilor in program prin redimensionare 28x28 pixeli.Aceste imagini au fost obținute prin descarcare de pe internet,apoi prin redimensionare de catre utilizator.
+Datele au fost generate cu ajutorul VI-ului din data/generated prin desen si reprezinta 50% din totalul de date care trebuiesc preprocesate.
 
-**Locația codului:** `data/processed`
+**Locația codului:** `data/generated`
 **Locația datelor:** `data/raw`
 
 ---
@@ -57,7 +57,7 @@ Stările principale sunt:
   1.IDLE: Sistemul așteaptă o acțiune a utilizatorului.
   2.LOAD_IMAGE: Achiziționează imaginea  (fie dintr-o cameră/senzor, fie dintr-un fișier local PNG).
   3.VALIDATE_IMAGE: Verifică calitatea minimă a imaginii (ex: rezoluție, prezența elementelor).
-  4.PREPROCESS: Aplică transformările necesare (Redimensionare la 28×28 px, Normalizare [0,1]), pregătind tensorul de intrare.
+  4.PREPROCESS: Aplică transformările necesare (Redimensionare la 280×280 px, Normalizare [0,1]), pregătind tensorul de intrare.
   5.RN_INFERENCE: Încărcă modelul (VI-ul RN) și realizează clasificarea.
   6.DISPLAY_RESULT:In timpul desenului utilizatorului,programul afișează clasa prezisă (Marca auto) și probabilitatea.
   7.STOP:Se opreste programul

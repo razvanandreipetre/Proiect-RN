@@ -103,7 +103,7 @@ Toate cele 3 module trebuie să **pornească și să ruleze fără erori** la pr
 
 **Funcționalități MINIME obligatorii:**
 - [X] Propunere Interfață ce primește input de la user (formular, file upload, sau API endpoint)
-- [ ] Includeți un screenshot demonstrativ în `docs/screenshots/`
+- [X] Includeți un screenshot demonstrativ în `docs/screenshots/`
 
 ## Checklist Final – Bifați Totul Înainte de Predare
 
@@ -114,7 +114,7 @@ Toate cele 3 module trebuie să **pornească și să ruleze fără erori** la pr
 - [ ] Dovezi contribuție originală: grafice + log + statistici în `docs/`
 - [X] Diagrama State Machine creată și salvată în `docs/state_machine.*`
 - [X] Legendă State Machine scrisă în README_Etapa4_Arhitectura_SIA.md (minimum 1-2 paragrafe cu justificare)
-- [ ] Repository structurat conform modelului de mai sus (verificat consistență cu Etapa 3)
+- [X] Repository structurat conform modelului de mai sus (verificat consistență cu Etapa 3)
 
 ### Modul 1: Data Logging / Acquisition
 - [X] Cod rulează fără erori (redimensionare imagini.vi)
@@ -124,7 +124,7 @@ Toate cele 3 module trebuie să **pornească și să ruleze fără erori** la pr
   - [ ] Metodă de generare/achiziție explicată
   - [ ] Parametri folosiți (frecvență, durată, zgomot, etc.)
   - [ ] Justificare relevanță date pentru problema voastră
-- [ ] Fișiere în `data/generated/` conform structurii
+- [X] Fișiere în `data/generated/` conform structurii
 
 ### Modul 2: Neural Network
 - [X] Arhitectură RN definită și documentată în cod (docstring detaliat) - versiunea inițială 
@@ -132,7 +132,7 @@ Toate cele 3 module trebuie să **pornească și să ruleze fără erori** la pr
 
 ### Modul 3: Web Service / UI
 - [X] Propunere Interfață ce pornește fără erori (comanda de lansare testată)
-- [ ] Screenshot demonstrativ în `docs/screenshots/ui_demo.png`
+- [X] Screenshot demonstrativ în `docs/screenshots/ui_demo.png`
 - [ ] README în `src/app/` cu instrucțiuni lansare (comenzi exacte)
 
 ---

@@ -4,8 +4,8 @@
 ### 2.1 Sursa datelor
 
 * **Origine:** Senzori
-* **Modul de achiziție:** ✓ Senzori reali / ☐ Simulare / ☐ Fișier extern / ☐ Generare programatică
-* **Perioada / condițiile colectării:** Noiembrie 2025
+* **Modul de achiziție:** ✓ Senzori reali / ☐ Simulare / ☐ Fișier extern / ✓ Generare programatică
+* **Perioada / condițiile colectării:** Noiembrie-Decembrie 2025
 
 ### 2.2 Caracteristicile dataset-ului
 
@@ -19,6 +19,7 @@
 | **Caracteristică** | **Tip** | **Unitate** | **Descriere** | **Domeniu valori** |
 |-------------------|---------|-------------|---------------|--------------------|
 | imagine logo | imagini | px | imagini logo-uri | rezolutia initiala |
+| imagini generate | imagini | px | imagini logo-uri | 280x280 |
 | Clase | Categorii |  | marca de masina | Audi,BMW,Mercedes,Renault,Hyundai |
 
 **Fișier recomandat:**  `data/README.md`
@@ -48,7 +49,7 @@
 
 ### 4.1 Curățarea datelor
 
-* Fiecare imagine a fost redimensionata ca sa aiba 28x28 pixeli pentru a putea fi trecuta mult mai usor in program.Am folosit functiile IMAQ Create,IMAQ Resample si IMAQ ImageToArray.
+* Fiecare imagine a fost redimensionata ca sa aiba 280x280 pixeli pentru a putea fi trecuta mult mai usor in program.Am folosit functiile IMAQ Create,IMAQ Resample si IMAQ ImageToArray.
 
 ### 4.2 Transformarea caracteristicilor
 

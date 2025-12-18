@@ -4,7 +4,7 @@
 **Instituție:** POLITEHNICA București – FIIR  
 **Student:** Petre Razvan-Andrei  
 **Link Repository GitHub:** (https://github.com/razvanandreipetre/Proiect-RN)  
-**Data predării:** 11.12.2025
+**Data predării:** 18.12.2025
 
 ---
 
@@ -25,12 +25,12 @@ Această etapă corespunde punctului **6. Configurarea și antrenarea modelului 
 
 **Înainte de a începe Etapa 5, verificați că aveți din Etapa 4:**
 
-- [ ] **State Machine** definit și documentat în `docs/state_machine.*`
-- [ ] **Contribuție ≥40% date originale** în `data/generated/` (verificabil)
-- [ ] **Modul 1 (Data Logging)** funcțional - produce CSV-uri
-- [ ] **Modul 2 (RN)** cu arhitectură definită dar NEANTRENATĂ (`models/untrained_model.h5`)
-- [ ] **Modul 3 (UI/Web Service)** funcțional cu model dummy
-- [ ] **Tabelul "Nevoie → Soluție → Modul"** complet în README Etapa 4
+- [X] **State Machine** definit și documentat în `docs/state_machine.*`
+- [X] **Contribuție ≥40% date originale** în `data/generated/` (verificabil)
+- [X] **Modul 1 (Data Logging)** funcțional - produce CSV-uri
+- [X] **Modul 2 (RN)** cu arhitectură definită dar NEANTRENATĂ (`models/untrained_model.h5`)
+- [X] **Modul 3 (UI/Web Service)** funcțional cu model dummy
+- [X] **Tabelul "Nevoie → Soluție → Modul"** complet în README Etapa 4
 
 ** Dacă oricare din punctele de mai sus lipsește → reveniți la Etapa 4 înainte de a continua.**
 
@@ -99,6 +99,7 @@ Completați tabelul cu hiperparametrii folosiți și **justificați fiecare aleg
 |--------------------|-------------------|-----------------|
 | Rata de invatare | 0.1 | O valoare moderată care permite convergența rețelei în LabVIEW fără oscilații mari. |
 | Numarul de epoci | 1000 | Suficiente iterații pentru ca eroarea globală să scadă sub pragul acceptabil.|
+| Batch Size | 32 | Oferă un echilibru optim între viteza de procesare și utilizarea memoriei, permițând actualizarea frecventă a greutăților. |
 | Arhitectura | 2 straturi ascunse | Configurație suportată de Create 2 Hidden Layers.vi, suficientă pentru complexitatea imaginilor procesate. |
 
 **Justificare detaliată batch size (exemplu):**
@@ -126,9 +127,9 @@ Includeți **TOATE** cerințele Nivel 1 + următoarele:
 1. **Early Stopping** - oprirea antrenării dacă `val_loss` nu scade în 5 epoci consecutive
 2. **Learning Rate Scheduler** - `ReduceLROnPlateau` sau `StepLR`
 3. **Augmentări relevante domeniu:**
-   - Vibrații motor: zgomot gaussian calibrat, jitter temporal
-   - Imagini industriale: slight perspective, lighting variation (nu rotații simple!)
-   - Serii temporale: time warping, magnitude warping
+   - Geometrice: Rotații ușoare (±10°), translări stânga-dreapta (pentru a simula desene necentrate).
+   - Morfologice: Dilatare/Eroziune (pentru a varia grosimea liniei de desen).
+   - Zgomot: Adăugare zgomot „Salt & Pepper” pentru a simula o cameră web slabă sau o foaie murdară.
 4. **Grafic loss și val_loss** în funcție de epoci salvat în `docs/loss_curve.png`
 5. **Analiză erori context industrial** (vezi secțiunea dedicată mai jos - OBLIGATORIU Nivel 2)
 
@@ -164,29 +165,24 @@ Includeți **TOATE** cerințele Nivel 1 + următoarele:
 
 Antrenarea și inferența trebuie să respecte fluxul din State Machine-ul vostru definit în Etapa 4.
 
-**Exemplu pentru monitorizare vibrații lagăr:**
-
 | **Stare din Etapa 4** | **Implementare în Etapa 5** |
 |-----------------------|-----------------------------|
-| `ACQUIRE_DATA` | Citire batch date din `data/train/` pentru antrenare |
-| `PREPROCESS` | Aplicare scaler salvat din `config/preprocessing_params.pkl` |
-| `RN_INFERENCE` | Forward pass cu model ANTRENAT (nu weights random) |
-| `THRESHOLD_CHECK` | Clasificare Normal/Uzură pe baza output RN antrenat |
-| `ALERT` | Trigger în UI bazat pe predicție modelului real |
+| `IDLE / WAIT` | Așteptare input utilizator |
+| `ACQUIRE_DATA` | Preluare imagine din Canvas sau upload fișier PNG (280x280 px). |
+| `PREPROCESS` | Redimensionare la 28x28 px și normalizare [0,1] folosind parametrii din `config`. |
+| `RN_INFERENCE` | Forward pass cu model invatare.vi |
+| `DISPLAY_ALERT` | Afișare clasă prezisă (ex: "Audi") doar dacă încrederea > Prag stabilit. |
+| `ERROR/RETRY` | Dacă încrederea este mică (<50%), se cere redesenarea logo-ului. |
 
 **În `src/app/main.py` (UI actualizat):**
 
 Verificați că **TOATE stările** din State Machine sunt implementate cu modelul antrenat:
 
-```python
-# ÎNAINTE (Etapa 4 - model dummy):
-model = keras.models.load_model('models/untrained_model.h5')  # weights random
-prediction = model.predict(input_scaled)  # output aproape aleator
+IN LABVIEW
 
-# ACUM (Etapa 5 - model antrenat):
-model = keras.models.load_model('models/trained_model.h5')  # weights antrenate
-prediction = model.predict(input_scaled)  # predicție REALĂ și corectă
-```
+Inainte-Etapa 4-citire salvare date.vi
+
+ACUM-Etapa5-invatare.vi
 
 ---
 
@@ -196,61 +192,39 @@ prediction = model.predict(input_scaled)  # predicție REALĂ și corectă
 
 ### 1. Pe ce clase greșește cel mai mult modelul?
 
-**Exemplu robotică (predicție traiectorii):**
-```
-Confusion Matrix arată că modelul confundă 'viraj stânga' cu 'viraj dreapta' în 18% din cazuri.
-Cauză posibilă: Features-urile IMU (gyro_z) sunt simetrice pentru viraje în direcții opuse.
-```
+În urma testării, matricea de confuzie indică faptul că modelul confundă cel mai des clasele cu geometrie similară:
 
-**Completați pentru proiectul vostru:**
-```
-[Descrieți confuziile principale între clase și cauzele posibile]
-```
+-Hyundai vs. Honda: Ambele logo-uri conțin un „H” stilizat încadrat într-o formă ovală/dreptunghiulară rotunjită. Diferențele de înclinare sunt subtile.
 
 ### 2. Ce caracteristici ale datelor cauzează erori?
 
-**Exemplu vibrații motor:**
-```
-Modelul eșuează când zgomotul de fond depășește 40% din amplitudinea semnalului util.
-În mediul industrial, acest nivel de zgomot apare când mai multe motoare funcționează simultan.
-```
+Erorile sunt cauzate în principal de calitatea input-ului utilizatorului:
 
-**Completați pentru proiectul vostru:**
-```
-[Identificați condițiile în care modelul are performanță slabă]
-```
+-Grosimea liniei: Rețeaua a fost antrenată predominant pe linii de grosime medie si mari(intre 5 si 20 px). 
+
+-Centrarea: Dacă utilizatorul desenează logo-ul într-un colț al suprafeței de desen, modelul (care nu este perfect invariant la translație) poate eșua clasificarea.
+
+-Linii întrerupte: Schițele rapide unde cercurile nu sunt închise complet pun probleme algoritmului.
 
 ### 3. Ce implicații are pentru aplicația industrială?
 
-**Exemplu detectare defecte sudură:**
-```
-FALSE NEGATIVES (defect nedetectat): CRITIC → risc rupere sudură în exploatare
-FALSE POSITIVES (alarmă falsă): ACCEPTABIL → piesa este re-inspectată manual
+Fiind o aplicație de interacțiune cu utilizatorul:
 
-Prioritate: Minimizare false negatives chiar dacă cresc false positives.
-Soluție: Ajustare threshold clasificare de la 0.5 → 0.3 pentru clasa 'defect'.
-```
+-False Positive (Clasificare greșită): Este cazul cel mai nedorit (ex: desenezi BMW și apare Mercedes). Scade încrederea utilizatorului în sistem.
 
-**Completați pentru proiectul vostru:**
-```
-[Analizați impactul erorilor în contextul aplicației voastre și prioritizați]
-```
+-False Negative (Nerecunoaștere): Este acceptabil. Sistemul poate cere „Vă rugăm redesenați mai clar”.
+
+Concluzie: Prioritatea este maximizarea Preciziei (Precision). Preferăm să nu dăm un răspuns decât să dăm unul greșit.
 
 ### 4. Ce măsuri corective propuneți?
 
-**Exemplu clasificare imagini piese:**
-```
-Măsuri corective:
-1. Colectare 500+ imagini adiționale pentru clasa minoritară 'zgârietură ușoară'
-2. Implementare filtrare Gaussian blur pentru reducere zgomot cameră industrială
-3. Augmentare perspective pentru simulare unghiuri camera variabile (±15°)
-4. Re-antrenare cu class weights: [1.0, 2.5, 1.2] pentru echilibrare
-```
+Pentru îmbunătățirea performanței în versiunea următoare:
 
-**Completați pentru proiectul vostru:**
-```
-[Propuneți minimum 3 măsuri concrete pentru îmbunătățire]
-```
+-Augmentare geometrică: Antrenarea cu imagini translate și rotite ușor (+/- 10 grade) pentru a rezolva problema centrării.
+
+-Preprocesare morfologică: Aplicarea unui filtru de 'Dilatare' asupra desenului utilizatorului înainte de inferență, pentru a îngroșa liniile subțiri.
+
+-Colectare date suplimentare: Adăugarea mai multor exemple de mână pentru clasele problematice (Hyundai/Honda).
 
 ---
 
@@ -382,17 +356,17 @@ streamlit run src/app/main.py
 ## Checklist Final – Bifați Totul Înainte de Predare
 
 ### Prerequisite Etapa 4 (verificare)
-- [ ] State Machine există și e documentat în `docs/state_machine.*`
-- [ ] Contribuție ≥40% date originale verificabilă în `data/generated/`
-- [ ] Cele 3 module din Etapa 4 funcționale
+- [X] State Machine există și e documentat în `docs/state_machine.*`
+- [X] Contribuție ≥40% date originale verificabilă în `data/generated/`
+- [X] Cele 3 module din Etapa 4 funcționale
 
 ### Preprocesare și Date
-- [ ] Dataset combinat (vechi + nou) preprocesat (dacă ați adăugat date)
+- [X] Dataset combinat (vechi + nou) preprocesat (dacă ați adăugat date)
 - [ ] Split train/val/test: 70/15/15% (verificat dimensiuni fișiere)
 - [ ] Scaler din Etapa 3 folosit consistent (`config/preprocessing_params.pkl`)
 
 ### Antrenare Model - Nivel 1 (OBLIGATORIU)
-- [ ] Model antrenat de la ZERO (nu fine-tuning pe model pre-antrenat)
+- [X] Model antrenat de la ZERO (nu fine-tuning pe model pre-antrenat)
 - [ ] Minimum 10 epoci rulate (verificabil în `results/training_history.csv`)
 - [ ] Tabel hiperparametri + justificări completat în acest README
 - [ ] Metrici calculate pe test set: **Accuracy ≥65%**, **F1 ≥0.60**
@@ -484,3 +458,4 @@ Exemplu:
 
 
 **Mult succes! Această etapă demonstrează că Sistemul vostru cu Inteligență Artificială (SIA) funcționează în condiții reale!**
+

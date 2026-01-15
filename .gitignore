@@ -1,0 +1,12 @@
+# LabVIEW Ignore
+*.aliases
+*.lvlps
+*.lvproj.user
+*.lvbitx
+*.ldb
+*.lock
+
+# Temporary/Cache
+builds/
+temp/
+ni-labview.conf

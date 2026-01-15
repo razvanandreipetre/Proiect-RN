@@ -1,6 +1,7 @@
 {
-  "test_accuracy": 0.75,
-  "test_f1_score": 0.72,
+  "test_accuracy": 0.65,
+  "test_f1_score": 0.60,
   "model_status": "Converged",
   "notes": "Modelul distinge corect BMW/Mercedes, confuzii minore intre Hyundai/Renault rezolvate prin calibrare pen-width."
+
 }

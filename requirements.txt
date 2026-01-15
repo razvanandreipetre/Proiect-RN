@@ -1,0 +1,10 @@
+# LabVIEW Project Dependencies
+
+LabVIEW >= 2024 Q1
+Vision Development Module (VDM)
+Vision Acquisition Software (VAS)
+NI LabVIEW Analytics & Machine Learning Toolkit (optional, daca s-au folosit functii avansate)
+
+# Hardware Drivers
+NI-IMAQdx (pentru achizitie camera, daca este cazul)
+Mouse/Stylus Driver (pentru desen)

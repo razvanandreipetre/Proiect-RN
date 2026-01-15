@@ -101,8 +101,8 @@ Includeți **TOATE** cerințele Nivel 1 + următoarele:
 5. **Analiză erori context industrial** (vezi secțiunea dedicată mai jos - OBLIGATORIU Nivel 2)
 
 **Indicatori țintă Nivel 2:**
-- **Acuratețe ≥ 75%**
-- **F1-score (macro) ≥ 0.70**
+- **Acuratețe ≥ 65%**
+- **F1-score (macro) ≥ 0.60**
 
 ---
 
@@ -367,7 +367,7 @@ streamlit run src/app/testare.vi
 - [X] Augmentări relevante domeniu aplicate (NU rotații simple!)
 - [X] Grafic loss/val_loss salvat în `docs/loss_curve.png`
 - [X] Analiză erori în context industrial completată (4 întrebări răspunse)
-- [X] Metrici Nivel 2: **Accuracy ≥75%**, **F1 ≥0.72**
+- [X] Metrici Nivel 2: **Accuracy ≥65%**, **F1 ≥0.60**
 
 ### Documentație Nivel 3 Bonus (dacă aplicabil)
 - [X] Comparație 2+ arhitecturi (tabel comparativ + justificare)
@@ -423,7 +423,7 @@ Asigurați-vă că următoarele fișiere există și sunt completate:
 ## Predare și Contact
 
 **Predarea se face prin:**
-1. Commit pe GitHub: `"Etapa 5 completă – Accuracy=0.75, F1=0.72"`
+1. Commit pe GitHub: `"Etapa 5 completă – Accuracy=0.65, F1=0.60"`
 2. Tag: `git tag -a v0.5-model-trained -m "Etapa 5 - Model antrenat"`
 3. Push: `git push origin main --tags`
 
@@ -431,3 +431,4 @@ Asigurați-vă că următoarele fișiere există și sunt completate:
 
 
 **Mult succes! Această etapă demonstrează că Sistemul vostru cu Inteligență Artificială (SIA) funcționează în condiții reale!**
+

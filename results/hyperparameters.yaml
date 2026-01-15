@@ -1,0 +1,17 @@
+# Configurare Retea Neuronala LabVIEW
+architecture:
+  input_layer: 784  # 28x28 pixels
+  hidden_layers: [100]
+  output_layer: 5
+  activation: "Sigmoid"
+
+training:
+  learning_rate: 0.1
+  momentum: 0.8
+  max_epochs: 10000
+  target_error: 0.01
+
+preprocessing:
+  resize: [28, 28]
+  invert_colors: true  # (1 - pixel)
+  normalization: "0 to 1"

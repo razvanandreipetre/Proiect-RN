@@ -9,7 +9,7 @@
 
 ### 2.2 Caracteristicile dataset-ului
 
-* **Număr total de observații:** 50
+* **Număr total de observații:** 85
 * **Număr de caracteristici (features):** 1
 * **Tipuri de date:** ☐ Numerice / ☐ Categoriale / ☐ Temporale / ✓ Imagini
 * **Format fișiere:** ☐ CSV / ☐ TXT / ☐ JSON / ✓ PNG / ☐ Altele: [...]
@@ -22,15 +22,13 @@
 | imagini generate | imagini | px | imagini logo-uri | 280x280 |
 | Clase | Categorii |  | marca de masina | Audi,BMW,Mercedes,Renault,Hyundai |
 
-**Fișier recomandat:**  `data/README.md`
-
 ---
 
 ##  3. Analiza Exploratorie a Datelor (EDA) – Sintetic
 
 ### 3.1 Statistici descriptive aplicate
 
-* 5 clase a cate 10 imagini fiecare
+* 5 clase a cate 17 imagini fiecare
 * Analiza dimensiunilor imaginii (Verificare uniformitate).
 
 ### 3.2 Analiza calității datelor
@@ -41,6 +39,7 @@
 ### 3.3 Probleme identificate
 
 * Dimensiuni initiale diferite
+* Similitudine între sigle
 
 
 ---
@@ -49,7 +48,7 @@
 
 ### 4.1 Curățarea datelor
 
-* Fiecare imagine a fost redimensionata ca sa aiba 280x280 pixeli pentru a putea fi trecuta mult mai usor in program.Am folosit functiile IMAQ Create,IMAQ Resample si IMAQ ImageToArray.
+* Fiecare imagine a fost redimensionata ca sa aiba 28x28 pixeli pentru a putea fi trecuta mult mai usor in program.Am folosit functiile IMAQ Create,IMAQ Resample si IMAQ ImageToArray.
 
 ### 4.2 Transformarea caracteristicilor
 
@@ -58,9 +57,9 @@
 
 ### 4.3 Structurarea seturilor de date
 
-* 70–80% – train
-* 10–15% – validation
-* 10–15% – test
+* 70% – train
+* 15% – validation
+* 15% – test
 
 **Principii respectate:**
 * Stratificare pentru clasificare
@@ -90,5 +89,6 @@
 - [✓] Structură repository configurată
 - [✓] Dataset analizat (EDA realizată)
 - [✓] Date preprocesate
-- [ ] Seturi train/val/test generate
+- [✓] Seturi train/val/test generate
 - [✓] Documentație actualizată în README + `data/README.md`
+EADME + `data/README.md`

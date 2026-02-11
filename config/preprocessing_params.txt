@@ -1,8 +1,8 @@
-[Preprocessing Configuration for LabVIEW Vision]
+Configurari LABVIEW
 
-Target Resolution: 28 x 28 pixels
-Color Mode: Grayscale (U8 -> SGL)
-Thresholding: None (Direct normalization)
-Inversion: True (Formula: 1.0 - PixelValue)
-Padding: No padding, direct resize.
-Pen Width Restriction: 4-6 pixels (enforced in UI)
+Rezolutie:28x28
+Culoare:Grayscale(U8->SGL)
+Normalizare:[0,1]
+Inversare:true
+Pen width:5-25px
+Line type:Solid,dash
